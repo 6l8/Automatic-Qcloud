@@ -26,6 +26,7 @@ def main(SecretId, SecretKey, region, InstanceIds, all_proportion):
     :param InstanceIds: str 实例ID
     :param all_proportion: int 预警值
     """
+    print('开始查询轻量云实例ID为{0}的流量信息'.format(InstanceIds))
     qrest = qcloud(SecretId, SecretKey, region, InstanceIds)
     if qrest != False:
         # 取数
@@ -45,8 +46,6 @@ def main(SecretId, SecretKey, region, InstanceIds, all_proportion):
         else:
             # 没有超标，结束脚本
             print('流量正常...')
-            time.sleep(3)
-            exit()
 
 
 def qcloud(SecretId, SecretKey, region, InstanceIds):
@@ -97,16 +96,22 @@ if __name__ == '__main__':
     "ap-beijing", "ap-chengdu", "ap-guangzhou", "ap-hongkong", "ap-nanjing", "ap-shanghai", "ap-singapore", "ap-tokyo", "eu-moscow", "na-siliconvalley"
     """
     # SecretId
-    SecretId = "你的SecretId"
+    SecretId = os.environ['SecretId']
     # SecretKey
-    SecretKey = "你的SecretKey"
+    SecretKey = os.environ['SecretKey']
     # 实例地域
-    region = "你的实例地域"
+    region = os.environ['region']
     # 轻量云实例ID
-    InstanceIds = "你的轻量云实例ID"
+    InstanceIds = os.environ['InstanceIds']
     # 预计比例0.95代表95%，0.9就是90%，具体自行修改
-    all_proportion = 0.95
+    all_proportion = os.environ['all_proportion']
     # 执行
     nowtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     print('---------' + str(nowtime) + ' 程序开始执行------------')
-    main(SecretId, SecretKey, region, InstanceIds, all_proportion)
+    region_list = region.split('#')
+    InstanceIds_list = InstanceIds.split('#')
+    if len(region_list) == len(InstanceIds_list):
+        for line in range(0, len(region_list)):
+            main(SecretId, SecretKey, region_list[line], InstanceIds_list[line], all_proportion)
+    else:
+        print('实例地域配置数量与轻量云实例ID配置数量不符')
