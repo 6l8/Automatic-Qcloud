@@ -47,8 +47,6 @@ def main(SecretId, SecretKey, region, InstanceIds):
                     CreateInstanceSnapshot(SecretId, SecretKey, region, InstanceIds)
         else:
             print('当前快照数量存在问题，请登录腾讯云后台检查并删除多余的快照后操作')
-            time.sleep(5)
-            exit()
 
 
 def CreateInstanceSnapshot(SecretId, SecretKey, region, InstanceIds):
@@ -70,9 +68,7 @@ def CreateInstanceSnapshot(SecretId, SecretKey, region, InstanceIds):
         resp = client.CreateInstanceSnapshot(req)
         resp_re = json.loads(resp.to_json_string())
         SnapshotId = resp_re['SnapshotId']
-        print('轻量云快照备份完成，快照ID为：{0},程序在5秒钟后关闭'.format(SnapshotId))
-        time.sleep(5)
-        exit()
+        print('轻量云快照备份完成，快照ID为：{0}'.format(SnapshotId))
 
     except TencentCloudSDKException as err:
         print(err)
