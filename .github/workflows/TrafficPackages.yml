@@ -1,0 +1,36 @@
+# This is a basic workflow to help you get started with Actions
+
+name: 腾讯云流量监控
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "*/30 * * * *"
+    watch:
+        types: [started]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        # 判断是否是仓库所有者点 Star
+        if: github.event.repository.owner.id == github.event.sender.id
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: "初始化Python"
+              uses: actions/setup-python@v1
+              with:
+                python-version: 3.8
+
+            - name: "安装腾讯云API库"
+              run: pip install -i https://mirrors.tencent.com/pypi/simple/ --upgrade tencentcloud-sdk-python
+
+            - name: "运行 腾讯云轻量云流量监控超标自动关机脚本"
+              run: python3 Qcloud_TrafficPackages.py
+              env:
+                  SecretId: ${{ secrets.SecretId }}
+                  SecretKey: ${{ secrets.SecretKey }}
+                  region: ${{ secrets.region }}
+                  InstanceIds: ${{ secrets.InstanceIds }}
+                  all_proportion: ${{ secrets.all_proportion }}
