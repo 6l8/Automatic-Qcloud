@@ -104,7 +104,7 @@ if __name__ == '__main__':
     # 轻量云实例ID
     InstanceIds = os.environ['InstanceIds']
     # 预计比例0.95代表95%，0.9就是90%，具体自行修改
-    all_proportion = os.environ['all_proportion']
+    all_proportion = 0.95
     # 执行
     nowtime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     print('---------' + str(nowtime) + ' 程序开始执行------------')
@@ -112,6 +112,6 @@ if __name__ == '__main__':
     InstanceIds_list = InstanceIds.split('#')
     if len(region_list) == len(InstanceIds_list):
         for line in range(0, len(region_list)):
-            main(SecretId, SecretKey, region_list[line], InstanceIds_list[line], int(all_proportion))
+            main(SecretId, SecretKey, region_list[line], InstanceIds_list[line], all_proportion)
     else:
         print('实例地域配置数量与轻量云实例ID配置数量不符')
