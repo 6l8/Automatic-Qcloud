@@ -22,4 +22,4 @@
 
 ## 感谢
 
-本项目基于 @fungjcode 的 [python_tools](https://github.com/fungjcode/python_tools) 项目修改而成
+本项目基于 [@fungjcode](https://github.com/fungjcode) 的 [python_tools](https://github.com/fungjcode/python_tools) 项目修改而成
