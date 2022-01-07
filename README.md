@@ -12,7 +12,7 @@
 | `InstanceIds` | 轻量云实例ID     | 轻量云实例ID,多实例请用`#`分割 例如：`lhins-asdd3z#lhins-oaseu3z`         |
 
 - 说明：
-  - 快照备份时间默认为每月的1日和16日的北京时间凌晨4时进行执行快照备份 如需修改请前往 [Snapshot.yml](./.github/workflows/Snapshot.yml#L8) 进行修改
+  - 快照备份时间默认为每过9天的北京时间凌晨4时执行快照备份 如需修改请前往 [Snapshot.yml](./.github/workflows/Snapshot.yml#L8) 进行修改
   - 腾讯云流量监控默认轮询时间为每小时30分钟一次 如需修改请前往 [TrafficPackages.yml](./.github/workflows/TrafficPackages.yml#L8) 进行修改
   - 腾讯云流量监控默认红线关机为总流量的95% 如需修改请前往 [TrafficPackages.yml](./Qcloud_TrafficPackages.py#L107) 进行修改
  
